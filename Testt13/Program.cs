@@ -7,6 +7,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.Extensions;
 using OpenQA.Selenium.Support.UI;
+using SanteDB.BusinessRules.JavaScript;
 
 // 1.	Navigate to http://webdriveruniversity.com/Scrolling/index.html
 // 2.	Scroll to the first element (zone1)
@@ -56,6 +57,9 @@ namespace Test13
 
             var zone4 = driver.FindElement(By.Id("zone4"));
             var zone4Text = zone4.Text;
+            //JavascriptExecutor js = (JavascriptExecutor) driver;
+            //js.ExecuteScript("window.scrollBy("60", " 99 ")");
+
             driver.ExecuteJavaScript("window.scrollBy(0, 270)");
             Assert.AreNotEqual(zone4Text, zone4.Text);
             var regex = new Regex(@"X\s*.?\s*\d*.*Y\s*.?\s*\d*", RegexOptions.IgnoreCase);

@@ -11,6 +11,7 @@
 
     <ItemGroup>
       <PackageReference Include="NUnit" Version="3.13.2" />
+      <PackageReference Include="SanteDB.BusinessRules.JavaScript" Version="2.1.142" />
       <PackageReference Include="Selenium.Support" Version="4.0.1" />
       <PackageReference Include="Selenium.WebDriver" Version="4.0.1" />
     </ItemGroup>

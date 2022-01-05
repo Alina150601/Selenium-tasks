@@ -18,8 +18,8 @@ namespace Testt11
             var driver = new ChromeDriver();
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
             driver.Navigate().GoToUrl("http://webdriveruniversity.com/Datepicker/index.html");
-            var defaultValueData =driver.FindElement(By.XPath("//*[@id='datepicker']/input")).Text;//date=null????
-            var today = DateTime.Now.ToString("mm-dd-yyyy");
+            var defaultValueData =driver.FindElement(By.XPath("//*[@id='datepicker']/input")).GetAttribute("value");
+            var today = DateTime.Now.ToString("MM-dd-yyyy");
             Assert.AreEqual(today,defaultValueData);
 
             driver.Quit();

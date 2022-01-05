@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -17,9 +18,8 @@ namespace Test8
         {
             var driver = new ChromeDriver();
             driver.Navigate().GoToUrl("http://webdriveruniversity.com/IFrame/index.html");
-            Thread.Sleep(3000);
-            driver.FindElement(By.XPath("/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/p"));//doesnt work!!!!!!!!
-            var sectionDescriptionText = driver.FindElement(By.XPath("/html/body/div[1]/div/div/div[2]/div[1]/div/div[2]/p")).Text;
+            var element = driver.FindElements(By.TagName("p")).First();
+            var sectionDescriptionText = element.Text;
             Assert.IsTrue(sectionDescriptionText.Contains("Lorem ipsum"));
             driver.FindElement(By.Id("nav-title")).Click();
             driver.Quit();

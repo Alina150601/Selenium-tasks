@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -16,6 +17,7 @@ namespace Test10
     {
         public static void Main(string[] args)
         {
+            const string conjureSnow = "Conjure snow";
             var driver = new ChromeDriver();
             var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
             Actions actions = new Actions(driver);
@@ -23,15 +25,14 @@ namespace Test10
             var inputToEnterNewItem = driver.FindElement(By.XPath("//input[contains(@placeholder,'Add new todo')]"));
             inputToEnterNewItem.SendKeys("Learn XPath");
             inputToEnterNewItem.SendKeys(Keys.Enter);
-            inputToEnterNewItem.SendKeys("Conjure snow");
+            inputToEnterNewItem.SendKeys(conjureSnow);
             inputToEnterNewItem.SendKeys(Keys.Enter);
-            var elementToDelete = driver.FindElement(By.XPath("//*[@id='container']/ul/li[1]"));
+            var elementToDelete = driver.FindElement(By.XPath($"//*[@id='container']/ul/li[contains(text(),'{conjureSnow}')]"));
             actions.MoveToElement(elementToDelete).Build().Perform();
-            driver.FindElement(By.XPath("//*[@id='container']/ul/li[1]/span/i")).Click();
+            driver.FindElement(By.XPath($"//*[@id='container']/ul/li[contains(text(),'{conjureSnow}')]/span/i")).Click();
+            wait.Until(d => d.FindElements(By.XPath($"//*[@id='container']/ul/li[contains(text(),'{conjureSnow}')]")).Count == 0);
             var allItemsCount = driver.FindElements(By.XPath("//*[@id='container']/ul/li")).Count;
-            wait.Until(d => d.FindElement(By.XPath("//*[@id='container']/ul/li[1]")).Displayed);
-            //not displayed
-            Assert.IsTrue(allItemsCount==4);
+            Assert.AreEqual(4,allItemsCount);
             driver.Quit();
         }
     }
